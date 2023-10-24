@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState, useCallback } from "react";
 import { createContext } from "use-context-selector";
 
 interface Transaction {
@@ -32,7 +32,7 @@ export const TransactionsContext = createContext({} as TransactionContextType);
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  async function fetchTransactions(query?: string) {
+  const fetchTransactions = useCallback(async (query?: string) => {
     const url = new URL("http://localhost:3000/transactions");
 
     if (query) {
@@ -51,36 +51,39 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     });
 
     setTransactions(data);
-  }
+  }, []);
 
   useEffect(() => {
     fetchTransactions();
-  }, []);
+  }, [fetchTransactions]);
 
-  async function createTransaction(data: CreateTransactionInput) {
-    try {
-      const response = await fetch("http://localhost:3000/transactions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          description: data.description,
-          price: data.price,
-          category: data.category,
-          type: data.type,
-          createdAt: new Date().toISOString(),
-        }),
-      });
+  const createTransaction = useCallback(
+    async (data: CreateTransactionInput) => {
+      try {
+        const response = await fetch("http://localhost:3000/transactions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            description: data.description,
+            price: data.price,
+            category: data.category,
+            type: data.type,
+            createdAt: new Date().toISOString(),
+          }),
+        });
 
-      if (response.ok) {
-        const responseData = await response.json();
-        setTransactions((state) => [responseData, ...state]);
-      } else {
-        console.error("Erro ao criar transação. Status:", response.status);
+        if (response.ok) {
+          const responseData = await response.json();
+          setTransactions((state) => [responseData, ...state]);
+        } else {
+          console.error("Erro ao criar transação. Status:", response.status);
+        }
+      } catch (error) {
+        console.error("Ocorreu um erro ao criar a transação:", error);
       }
-    } catch (error) {
-      console.error("Ocorreu um erro ao criar a transação:", error);
-    }
-  }
+    },
+    []
+  );
 
   return (
     <TransactionsContext.Provider
