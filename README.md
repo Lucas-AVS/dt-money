@@ -1,27 +1,29 @@
-# React + TypeScript + Vite
+# DT Money
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+DT Money is a fictional financial management application built with React and TypeScript. It serves as a personal finance tracker to help users manage their income, expenses, and transactions. This project was developed to improve skills in web development and demonstrate proficiency in using technologies such as Styled Components, React Hook Form, Zod, and HookForm/Resolver.
 
-Currently, two official plugins are available:
+<div align="center">
+  <img width="700" src="./src/assets/dt-money-preview.gif">
+</div>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Income and Expense Tracking:** DT Money allows you to keep track of your income and expenses, categorizing your transactions to gain insights into your financial activities.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Transaction History:** The application provides a transaction history, giving you a clear overview of your financial records.
 
-- Configure the top-level `parserOptions` property like this:
+- **Add New Transactions:** Easily add new income or expense transactions to your account.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- **Search Transactions:** Search and filter transactions by type, description, date, and price to quickly find specific entries.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Technologies Used
+
+DT Money leverages various technologies and libraries, including:
+
+- React
+- TypeScript
+- Styled Components
+- React Hook Form
+- Zod
+- HookForm/Resolver
+- JSON Server (for storing transaction data)
